@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('tgl_periksa');
             $table->string('catatan')->nullable();
             $table->integer('biaya_periksa')->nullable();
+            $table->timestamps();
         });
     }
 

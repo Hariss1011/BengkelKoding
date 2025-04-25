@@ -9,8 +9,15 @@
 {{-- Content body: main page content --}}
 
 @section('content_body')
-    <p>Welcome to this beautiful admin panel.</p>
+    <div class="text-center mt-5">
+        <h2>Selamat Datang di SISMENKES</h2>
+        <p class="mb-4">Silakan login atau register untuk melanjutkan</p>
+
+        <a href="{{ route('login') }}" class="btn btn-primary me-2">Login</a>
+        <a href="{{ route('register') }}" class="btn btn-outline-primary">Register</a>
+    </div>
 @stop
+
 
 {{-- Push extra CSS --}}
 
@@ -22,5 +29,7 @@
 {{-- Push extra scripts --}}
 
 @push('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
 @endpush

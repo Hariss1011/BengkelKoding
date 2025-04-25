@@ -33,7 +33,7 @@ class RegisterController extends Controller
 
     protected function redirectTo()
     {
-        return Auth::user()->role === 'dokter' ? "/dokter" : "home";
+        return Auth::user()->role === 'dokter' ? "/dokter" : "pasien";
     }
 
 
@@ -74,6 +74,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role' => 'pasien',
         ]);
     }
 }

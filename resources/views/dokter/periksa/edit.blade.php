@@ -9,7 +9,7 @@
 
             <div class="mb-3">
                 <label>Nama Pasien</label>
-                <input type="text" value="{{ $periksa->pasien->nama }}" class="form-control" readonly>
+                <input type="text" value="{{ $periksa->pasien->name }}" class="form-control" readonly>
             </div>
 
             <div class="mb-3">

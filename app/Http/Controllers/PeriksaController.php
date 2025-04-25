@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Periksa;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeriksaController extends Controller
 {
@@ -13,7 +14,17 @@ class PeriksaController extends Controller
      */
     public function index()
     {
-        $periksas = Periksa::with(['pasien', 'dokter'])->get();
+        $dokterId = Auth::id();
+        $query = Periksa::with(['pasien', 'dokter'])
+            ->where('id_dokter', $dokterId);
+
+        if (request()->has('search') && request('search') !== '') {
+            $query->whereHas('pasien', function ($q) {
+                $q->where('name', 'like', '%' . request('search') . '%');
+            });
+        }
+
+        $periksas = $query->get();
         return view('dokter.periksa.index', compact('periksas'));
     }
 
@@ -23,11 +34,7 @@ class PeriksaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $users = User::all(); // untuk select pasien dan dokter
-        return view('dokter.periksa.create', compact('users'));
-    }
+    public function create() {}
 
 
     /**
