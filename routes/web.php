@@ -16,6 +16,7 @@ Route::prefix('dokter')->middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'dokter'])->name('dokter');
     Route::resource('obat', ObatController::class);
     Route::resource('periksa', PeriksaController::class);
+    Route::get('/dokter/periksa/{periksa}/periksa', [PeriksaController::class, 'show'])->name('periksa.show');
     Route::get('/detail-periksa/{id}', [DetailPeriksaController::class, 'index'])->name('detail-periksa.index');
     Route::post('/detail-periksa/{id}', [DetailPeriksaController::class, 'store'])->name('detail-periksa.store');
     Route::delete('/detail-periksa/{id}', [DetailPeriksaController::class, 'destroy'])->name('detail-periksa.destroy');

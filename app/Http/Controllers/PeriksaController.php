@@ -6,6 +6,7 @@ use App\Models\Periksa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Obat;
 
 class PeriksaController extends Controller
 {
@@ -59,10 +60,13 @@ class PeriksaController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Periksa $periksa)
     {
-        //
+        $obats = Obat::all(); // ambil semua obat
+        return view('dokter.periksa.periksa', compact('periksa', 'obats'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
