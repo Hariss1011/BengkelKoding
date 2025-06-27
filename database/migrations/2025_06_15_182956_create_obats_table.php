@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('obats', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('name_obat')->max(50);
-            $table->string('kemasan')->max(50);
+            $table->string('nama_obat');
+            $table->string('kemasan');
             $table->integer('harga')->nullable();
+            $table->timestamps();
         });
     }
 

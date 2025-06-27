@@ -8,73 +8,55 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    //protected $redirectTo = '/home';
 
     protected function redirectTo()
     {
-        return Auth::user()->role === 'dokter' ? "/dokter" : "pasien";
+        return '/pasien';
     }
 
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'alamat'   => ['required', 'string'],
+            'no_hp'    => ['required', 'string'],
+            'no_ktp'   => ['required', 'string'],
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
+        // Generate no_rm unik otomatis
+        $tanggal = Carbon::now()->format('ymd');
+        $no_rm = '';
+        $counter = 1;
+
+        do {
+            $no_rm = 'RM' . $tanggal . str_pad($counter, 3, '0', STR_PAD_LEFT);
+            $counter++;
+        } while (User::where('no_rm', $no_rm)->exists());
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'pasien',
+            'alamat'   => $data['alamat'],
+            'no_hp'    => $data['no_hp'],
+            'no_ktp'   => $data['no_ktp'],
+            'role'     => 'pasien',
+            'no_rm'    => $no_rm,
         ]);
     }
 }

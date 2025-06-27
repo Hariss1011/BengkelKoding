@@ -50,6 +50,37 @@
                         required>
                 </div>
 
+                {{-- Alamat --}}
+                <div class="mb-3">
+                    <label for="alamat">Alamat</label>
+                    <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror"
+                        placeholder="Masukkan alamat" value="{{ old('alamat') }}" required>
+                    @error('alamat')
+                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                    @enderror
+                </div>
+
+                {{-- No HP --}}
+                <div class="mb-3">
+                    <label for="no_hp">Nomor HP</label>
+                    <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror"
+                        placeholder="08xxxxxxx" value="{{ old('no_hp') }}" required>
+                    @error('no_hp')
+                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                    @enderror
+                </div>
+
+                {{-- No KTP --}}
+                <div class="mb-3">
+                    <label for="no_ktp">Nomor KTP</label>
+                    <input type="text" name="no_ktp" class="form-control @error('no_ktp') is-invalid @enderror"
+                        placeholder="Masukkan nomor KTP" value="{{ old('no_ktp') }}" required>
+                    @error('no_ktp')
+                        <span class="invalid-feedback"><strong>{{ $message }}</strong></span>
+                    @enderror
+                </div>
+
+
                 <button type="submit" class="btn btn-success btn-block">
                     <i class="fas fa-user-plus mr-1"></i> Daftar
                 </button>

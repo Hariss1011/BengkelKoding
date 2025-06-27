@@ -14,6 +14,7 @@ class Periksa extends Model
     protected $fillable = [
         'id_pasien',
         'id_dokter',
+        'id_daftar_poli',
         'tgl_periksa',
         'catatan',
         'biaya_periksa',
@@ -22,6 +23,11 @@ class Periksa extends Model
     public function pasien()
     {
         return $this->belongsTo(User::class, 'id_pasien');
+    }
+
+    public function daftarPoli()
+    {
+        return $this->belongsTo(DaftarPoli::class, 'id_daftar_poli');
     }
 
     public function dokter()

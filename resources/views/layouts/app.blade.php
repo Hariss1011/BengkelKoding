@@ -1,19 +1,18 @@
 @extends('adminlte::page')
 
-{{-- Extend and customize the browser title --}}
-
+{{-- Judul halaman --}}
 @section('title')
     {{ config('adminlte.title') }}
-    @hasSection('subtitle') | @yield('subtitle') @endif
+    @hasSection('subtitle')
+        | @yield('subtitle')
+    @endif
 @stop
 
-{{-- Extend and customize the page content header --}}
-
+{{-- Header konten --}}
 @section('content_header')
     @hasSection('content_header_title')
         <h1 class="text-muted">
             @yield('content_header_title')
-
             @hasSection('content_header_subtitle')
                 <small class="text-dark">
                     <i class="fas fa-xs fa-angle-right text-muted"></i>
@@ -24,19 +23,16 @@
     @endif
 @stop
 
-{{-- Rename section content to content_body --}}
-
+{{-- Isi konten --}}
 @section('content')
     @yield('content_body')
 @stop
 
-{{-- Create a common footer --}}
-
+{{-- Footer --}}
 @section('footer')
     <div class="float-right">
         Version: {{ config('app.version', '1.0.0') }}
     </div>
-
     <strong>
         <a href="{{ config('app.company_url', '#') }}">
             {{ config('app.company_name', 'My company') }}
@@ -44,32 +40,22 @@
     </strong>
 @stop
 
-{{-- Add common Javascript/Jquery code --}}
-
+{{-- Tambahkan custom JS --}}
 @push('js')
-<script>
-
-    $(document).ready(function() {
-        // Add your common script logic here...
-    });
-
-</script>
+    <script>
+        $(document).ready(function() {
+            // custom script global
+        });
+    </script>
 @endpush
 
-{{-- Add common CSS customizations --}}
-
+{{-- Tambahkan custom CSS --}}
 @push('css')
-<style type="text/css">
-
-    {{-- You can add AdminLTE customizations here --}}
-    /*
-    .card-header {
-        border-bottom: none;
-    }
-    .card-title {
-        font-weight: 600;
-    }
-    */
-
-</style>
+    <style type="text/css">
+        /* Style global */
+    </style>
 @endpush
+
+{{-- ✅ PENTING: render stack css & scripts dari child --}}
+@stack('css')
+@stack('scripts')
