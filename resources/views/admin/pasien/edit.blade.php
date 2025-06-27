@@ -29,8 +29,9 @@
 
             <div class="mb-3">
                 <label>No. RM</label>
-                <input type="text" class="form-control" value="{{ $pasien->no_rm }}" readonly>
+                <input type="text" name="no_rm" class="form-control" value="{{ $pasien->no_rm }}" readonly>
             </div>
+
 
 
             <div class="mb-3">
